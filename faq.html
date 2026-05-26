@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Frequently asked questions about DigiLAT — free legal guidance for UK residents." />
+  <title>FAQ — DigiLAT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy-dark:     #1D2E4C;
+      --navy-mid:      #2B5488;
+      --navy-light:    #D0DBF0;
+      --navy-pale:     #EBF0FA;
+      --ink:           #1A1A18;
+      --ink-muted:     #5F5E5A;
+      --ink-faint:     #9A9993;
+      --surface:       #FFFFFF;
+      --surface-alt:   #E2DDD4;
+      --border:        rgba(26,26,24,0.10);
+      --border-strong: rgba(26,26,24,0.18);
+      --radius-sm:     6px;
+      --radius-md:     10px;
+      --radius-lg:     16px;
+      --radius-xl:     22px;
+      --font-serif:    'Playfair Display', Georgia, serif;
+      --font-sans:     'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      color: var(--ink);
+      background: var(--surface);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem; height: 72px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex; align-items: center;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      height: 54px; width: auto;
+    }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a {
+      font-size: 14px; color: var(--ink-muted);
+      text-decoration: none; transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--ink); font-weight: 500; }
+    .btn-nav {
+      background: var(--navy-dark); color: #fff;
+      font-family: var(--font-sans); font-size: 13px; font-weight: 500;
+      padding: 8px 18px; border-radius: var(--radius-sm);
+      border: none; cursor: pointer; text-decoration: none;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .btn-nav:hover { background: #152337; }
+    .btn-nav:active { transform: scale(0.98); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: var(--navy-dark);
+      padding: 5rem 2.5rem 4rem;
+      text-align: center;
+    }
+    .page-header h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.4px;
+      margin-bottom: 1rem;
+    }
+    .page-header h1 em { color: var(--navy-light); font-style: italic; }
+    .page-header p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.68);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ── FAQ CONTENT ── */
+    .faq-content {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 4rem 2.5rem;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 1.5rem 2.5rem 1.5rem 0;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+      cursor: pointer;
+      position: relative;
+      line-height: 1.5;
+      transition: color 0.15s;
+    }
+    .faq-question:hover { color: var(--navy-mid); }
+    .faq-question::after {
+      content: '+';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--ink-faint);
+      transition: transform 0.25s, color 0.15s;
+    }
+    .faq-item.open .faq-question::after {
+      content: '-';
+      color: var(--navy-mid);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 400px;
+      padding-bottom: 1.5rem;
+    }
+    .faq-answer p {
+      font-size: 15px;
+      color: var(--ink-muted);
+      line-height: 1.8;
+      margin-bottom: 0.75rem;
+    }
+    .faq-answer p:last-child { margin-bottom: 0; }
+
+    .faq-category {
+      font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+      color: var(--navy-dark); text-transform: uppercase;
+      margin-top: 2.5rem; margin-bottom: 0.5rem;
+      padding-bottom: 0.75rem;
+    }
+    .faq-category:first-child { margin-top: 0; }
+
+    /* ── CONTACT BANNER ── */
+    .contact-banner {
+      background: var(--navy-pale);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem;
+      text-align: center;
+    }
+    .contact-banner-inner {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .contact-banner h3 {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .contact-banner p {
+      font-size: 14px;
+      color: var(--ink-muted);
+      line-height: 1.7;
+    }
+    .contact-banner a {
+      color: var(--navy-mid);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .contact-banner a:hover { text-decoration: underline; }
+
+    /* ── BOTTOM CTA ── */
+    .cta-section {
+      background: var(--navy-dark);
+      padding: 5rem 2.5rem;
+      text-align: center;
+    }
+    .cta-inner { max-width: 640px; margin: 0 auto; }
+    .cta-section h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(26px, 3.5vw, 38px);
+      font-weight: 700; color: #fff;
+      line-height: 1.2; margin-bottom: 1rem; letter-spacing: -0.4px;
+    }
+    .cta-section h2 em { color: var(--navy-light); font-style: italic; }
+    .cta-section p {
+      font-size: 16px; color: rgba(255,255,255,0.68);
+      line-height: 1.7; margin-bottom: 2rem;
+    }
+    .btn-cta-primary {
+      background: #fff; color: var(--navy-dark);
+      font-family: var(--font-sans); font-size: 15px; font-weight: 500;
+      padding: 14px 28px; border-radius: var(--radius-sm);
+      border: none; cursor: pointer; text-decoration: none;
+      display: inline-block; transition: background 0.15s, transform 0.1s;
+    }
+    .btn-cta-primary:hover { background: rgba(255,255,255,0.88); }
+    .btn-cta-primary:active { transform: scale(0.98); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-left { font-size: 13px; color: var(--ink-muted); }
+    .footer-left strong { color: var(--ink); font-weight: 500; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 13px; color: var(--ink-muted); text-decoration: none; }
+    .footer-links a:hover { color: var(--ink); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .page-header { animation: fadeUp 0.5s ease both; }
+    .faq-content { animation: fadeUp 0.5s 0.1s ease both; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 780px) {
+      nav { padding: 0 1.25rem; }
+      .nav-links { display: none; }
+      .page-header { padding: 3.5rem 1.25rem 3rem; }
+      .faq-content { padding: 3rem 1.25rem; }
+      footer { padding: 1.5rem 1.25rem; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="assets/logo.png" alt="DigiLAT" />
+    </a>
+    <div class="nav-links">
+      <a href="index.html#how-it-works">How it works</a>
+      <a href="index.html#legal-areas">Legal areas</a>
+      <a href="about.html">About us</a>
+      <a href="faq.html" class="active">FAQ</a>
+      <a href="https://tally.so/r/68v1NN" class="btn-nav" target="_blank" rel="noopener">Get free guidance →</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1>Frequently Asked <em>Questions</em></h1>
+    <p>Everything you need to know about how DigiLAT works, what we provide, and how we can help.</p>
+  </div>
+
+  <!-- FAQ CONTENT -->
+  <div class="faq-content">
+
+    <div class="faq-category">About the service</div>
+
+    <div class="faq-item">
+      <button class="faq-question">What is DigiLAT?</button>
+      <div class="faq-answer">
+        <p>DigiLAT is a free service that provides plain-English legal information to people in the United Kingdom. When you tell us about your situation, we send you an overview of the UK laws that may apply, the rights you may have, and template letters you can use — all at no cost.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">Is DigiLAT really free?</button>
+      <div class="faq-answer">
+        <p>Yes, completely free. There are no hidden charges, no premium tiers, and no subscription. We will never ask you for payment.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">Do I need to create an account or register?</button>
+      <div class="faq-answer">
+        <p>No. You simply fill in the enquiry form with your name, email address, and a description of your situation. We will send your overview directly to your email. No account or registration is required.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">How quickly will I receive a response?</button>
+      <div class="faq-answer">
+        <p>We aim to respond within one hour during operating hours. More complex situations may take a little longer, but we will always respond as quickly as possible.</p>
+      </div>
+    </div>
+
+    <div class="faq-category">What we provide</div>
+
+    <div class="faq-item">
+      <button class="faq-question">Is this legal advice?</button>
+      <div class="faq-answer">
+        <p>No. DigiLAT provides general legal <em>information</em>, not legal <em>advice</em>. We explain how UK law may relate to your situation in general terms. Our service does not create a solicitor-client relationship, and the information we provide should not be treated as a substitute for professional legal advice.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">What will I receive in my email?</button>
+      <div class="faq-answer">
+        <p>You will receive a clear overview that typically includes: the areas of UK law that may be relevant to your situation, an explanation of the rights you may have, practical next steps you could consider, and — where appropriate — template letters or emails you can adapt and use.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">What legal areas do you cover?</button>
+      <div class="faq-answer">
+        <p>We cover a range of common legal issues including consumer rights, tenant and housing disputes, employment law, debt and finance, discrimination, and contract disputes. If your issue falls outside these areas, we will do our best to point you towards the right resource.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">Can you help with urgent or complex cases?</button>
+      <div class="faq-answer">
+        <p>If your situation is urgent or involves court proceedings, we recommend seeking professional legal advice. We can refer you to qualified solicitors in our pro bono network, or signpost you to free services such as Citizens Advice, Law Centres, or the government's legal aid scheme.</p>
+      </div>
+    </div>
+
+    <div class="faq-category">Privacy &amp; data</div>
+
+    <div class="faq-item">
+      <button class="faq-question">Is my information kept private?</button>
+      <div class="faq-answer">
+        <p>Yes. We treat your information with strict confidentiality. Your personal details and the information you share about your situation are never sold, shared with third parties for marketing purposes, or used for any purpose other than providing you with legal information.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">Can I ask follow-up questions?</button>
+      <div class="faq-answer">
+        <p>Absolutely. Simply reply to the email we send you and we will do our best to clarify or expand on any part of your overview. If your situation requires more in-depth support, we can discuss a referral to a pro bono solicitor.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CONTACT BANNER -->
+  <div class="contact-banner">
+    <div class="contact-banner-inner">
+      <h3>Still have questions?</h3>
+      <p>Get in touch at <a href="mailto:info@digilat.co.uk">info@digilat.co.uk</a> and we'll be happy to help.</p>
+    </div>
+  </div>
+
+  <!-- BOTTOM CTA -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <h2>Ready to get <em>free guidance?</em></h2>
+      <p>Tell us your situation and we'll send a clear overview of your rights and next steps — no cost, no registration.</p>
+      <a href="https://tally.so/r/68v1NN" class="btn-cta-primary" target="_blank" rel="noopener">Start your enquiry →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">
+      <strong>DigiLAT</strong> · Free legal information · United Kingdom &nbsp;·&nbsp; © 2026 DigiLAT
+    </div>
+    <nav class="footer-links">
+      <a href="about.html">About us</a>
+      <a href="faq.html">FAQ</a>
+      <a href="privacy.html">Privacy policy</a>
+      <a href="terms.html">Terms of use</a>
+      <a href="mailto:info@digilat.co.uk">Contact</a>
+    </nav>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.faq-question').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = this.parentElement;
+        var wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(function(el) { el.classList.remove('open'); });
+        if (!wasOpen) item.classList.add('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
